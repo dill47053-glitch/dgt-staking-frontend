@@ -1,0 +1,7 @@
+export default function Page() {
+  return (
+    <div style={{ background: 'red', height: '100vh', color: 'white' }}>
+      <h1>KUNG NAKIKITA MO ITO NA COLOR RED, GUMAGANA ANG FILE UPDATES MO!</h1>
+    </div>
+  );
+}

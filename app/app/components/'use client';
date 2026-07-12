@@ -1,0 +1,7 @@
+'use client'; // <-- Ito ang pinakaimportante
+
+import { useState, useEffect } from 'react';
+
+export default function TradingIndicator() {
+  // ... ang code mo
+}

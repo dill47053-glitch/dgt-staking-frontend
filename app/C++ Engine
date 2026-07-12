@@ -1,0 +1,7 @@
+#ifdef __cplusplus
+extern "C" {
+#endif
+    double calculateMACD(double* prices, int size, int period, int dummy);
+#ifdef __cplusplus
+}
+#endif
