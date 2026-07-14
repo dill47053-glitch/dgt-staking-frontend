@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.101.2",
+    "@walletconnect/ethereum-provider": "^2.23.10",
     "@web3modal/wagmi": "^5.1.11",
     "ethers": "^6.17.0",
     "framer-motion": "^12.42.2",

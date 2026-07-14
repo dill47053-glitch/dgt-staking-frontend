@@ -1,13 +1,11 @@
 'use client';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useWeb3Modal } from '@web3modal/wagmi/react';
-import { useAccount, useDisconnect } from 'wagmi';
+import WalletButton from './WalletButton';
 
 export default function Home() {
-  // Gagamitin na natin ang totoong Web3 hooks!
-  const { open } = useWeb3Modal();
-  const { address, isConnected } = useAccount();
+  // Gagamitin na natin ang totoong Web3 hooks!;
+  const { address, isConnected } = useDisconnect();
   const { disconnect } = useDisconnect();
 
   const [stakedBalance, setStakedBalance] = useState(100000000000); 
@@ -161,7 +159,7 @@ export default function Home() {
             animate={{ opacity: 1, x: 0 }}
             className="bg-black/40 border border-amber-500/10 p-8 rounded-3xl backdrop-blur-md shadow-2xl text-left z-30 relative"
           >
-            <button 
+            <button
               onClick={() => { setCurrentTab('Dashboard'); setBgColor('bg-[#0a0a0a]'); }}
               className="text-xs text-amber-500 hover:text-amber-400 transition-colors mb-4 inline-block font-medium cursor-pointer"
             >
