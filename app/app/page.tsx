@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import WalletButton from './WalletButton'; // In-import natin yung ginawa nating button
+import WalletButton from './WalletButton'; 
 
 export default function Home() {
   const [stakedBalance, setStakedBalance] = useState(100000000000); 
