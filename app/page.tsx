@@ -3,26 +3,6 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 export default function Home() {
-  return (
-    <main>
-      {/*
-      }<div style={{ textAlign: 'center', margin: '20px' }}>
-  <img 
-    src="/dgt-logo.png" 
-    alt="DGT Logo" 
-    width={100} 
-    height={100} 
-  />
-  <div style={{ marginTop: '10px' }}>
-    <p>Contract Address:</p>
-    <p>Wallet: {walletAddress}</p>
-    <code style={{ background: '#f0f0f0', padding: '5px', borderRadius: '4px' }}>
-      0x7353BA5DB88Cc9F2778aeDe8F17975f9c781edC6
-    </code>
-  </div>
-</div>
-    </main>
-  )
   const [walletAddress, setWalletAddress] = useState('');
   const [stakedBalance, setStakedBalance] = useState(100000000000); // 100B Default/Cached
   const [stakeInput, setStakeInput] = useState('');

@@ -20,10 +20,10 @@ st.set_page_config(page_title="AI Trading Dashboard", layout="wide")
 
 # Sidebar para sa Token Info
 with st.sidebar:
-    st.image(DGT_LOGO_URL, width=100)
-    st.title("Digital Gold Token")
-    st.subheader("Contract Address")
-    st.code(DGT_ADDRESS, language="text")
+     st.image(DGT_LOGO_URL, width=100)
+     st.title("Digital Gold Token")
+     st.subheader("Contract Address")
+     st.code(DGT_ADDRESS, language="text")
 
 st.title("AI Trading Dashboard")
 
@@ -35,9 +35,9 @@ arr = (ctypes.c_double * len(sample_prices))(*sample_prices)
 
 col1, col2 = st.columns(2)
 with col1:
-    sma = lib.calculateSMA(arr, len(sample_prices), period)
-    st.metric("SMA", f"{sma:.2f}")
+     sma = lib.calculateSMA(arr, len(sample_prices), period)
+     st.metric("SMA", f"{sma:.2f}")
 
 with col2:
-    rsi = lib.calculateRSI(arr, len(sample_prices), period)
-    st.metric("RSI", f"{rsi:.2f}")
+     rsi = lib.calculateRSI(arr, len(sample_prices), period)
+     st.metric("RSI", f"{rsi:.2f}")
