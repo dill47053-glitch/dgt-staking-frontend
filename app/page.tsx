@@ -3,6 +3,26 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 export default function Home() {
+  return (
+    <main>
+      {/*
+      }<div style={{ textAlign: 'center', margin: '20px' }}>
+  <img 
+    src="/dgt-logo.png" 
+    alt="DGT Logo" 
+    width={100} 
+    height={100} 
+  />
+  <div style={{ marginTop: '10px' }}>
+    <p>Contract Address:</p>
+    <p>Wallet: {walletAddress}</p>
+    <code style={{ background: '#f0f0f0', padding: '5px', borderRadius: '4px' }}>
+      0x7353BA5DB88Cc9F2778aeDe8F17975f9c781edC6
+    </code>
+  </div>
+</div>
+    </main>
+  )
   const [walletAddress, setWalletAddress] = useState('');
   const [stakedBalance, setStakedBalance] = useState(100000000000); // 100B Default/Cached
   const [stakeInput, setStakeInput] = useState('');
@@ -92,6 +112,10 @@ export default function Home() {
     <main className={`min-h-screen ${bgColor} text-white flex flex-col items-center justify-between p-6 transition-all duration-700 ease-in-out relative overflow-hidden`}>
       {/* Top Wallet Connect Bar */}
       <div className="w-full max-w-6xl flex justify-end p-4 z-50 relative">
+       <div>
+  <img src="https://i.postimg.cc/FHcpQGs8/opengraph-image.png" alt="DGT Logo" width={50} height={50} />
+  <p>Contract Address: 0x7353BA5DB88Cc9F2778aeDe8F17975f9c781edC6</p>
+</div> 
         <button
           onClick={connectWallet}
           disabled={loading}
