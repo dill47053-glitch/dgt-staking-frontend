@@ -1,16 +1,24 @@
 'use client';
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 import WalletButton from './WalletButton';
 
 export default function Home() {
-  const [stakedBalance, setStakedBalance] = useState(100000000000);
-  const [stakeInput, setStakeInput] = useState('');
+  const [stakedBalance] = useState(100000000000);
+  const [openSection, setOpenSection] = useState<string | null>(null);
+
+  const toggleSection = (section: string) => {
+    setOpenSection(openSection === section ? null : section);
+  };
+
+  const sections = [
+    { title: "Storytelling", content: "Digital Gold Token ($DGT) is a decentralized staking ecosystem built to provide stability and long-term value to holders." },
+    { title: "Tokenomics", content: "Total Supply: 500 Billion $DGT. 40% allocated for staking rewards, 30% for liquidity, and 30% for ecosystem development." },
+    { title: "Whitepaper", content: "Our architecture utilizes a high-performance C++ engine for fast transactions, integrated with a secure Next.js frontend." }
+  ];
 
   return (
     <main className="min-h-screen bg-[#0a0a0a] text-white p-4 md:p-8">
-      {/* Header */}
-      <header className="flex justify-between items-center w-full mb-12">
+      <header className="flex justify-between items-center max-w-7xl mx-auto mb-12">
         <div className="flex items-center gap-4 bg-neutral-900/50 p-2 pr-4 rounded-2xl border border-neutral-800/50">
           <img src="https://i.postimg.cc/FHcpQGs8/opengraph-image.png" alt="DGT Logo" width={45} height={45} className="rounded-xl"/>
           <div>
@@ -21,47 +29,37 @@ export default function Home() {
         <WalletButton />
       </header>
 
-      {/* Main Layout - Grid na nakasentro */}
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-        
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12">
         {/* Left Side: Staking */}
-        <section className="bg-neutral-900/40 p-8 rounded-3xl border border-neutral-800 backdrop-blur-sm">
-          <h1 className="text-5xl font-bold bg-gradient-to-b from-amber-200 to-amber-600 bg-clip-text text-transparent mb-6">
-            Digital Gold Token
-          </h1>
+        <section className="lg:col-span-7 bg-neutral-900/40 p-10 rounded-3xl border border-neutral-800 shadow-2xl">
+          <h1 className="text-5xl font-bold bg-gradient-to-b from-amber-200 to-amber-600 bg-clip-text text-transparent mb-6">Digital Gold Token</h1>
           <p className="text-neutral-400 mb-8">Stake your $DGT to earn rewards in our decentralized ecosystem.</p>
           
-          <div className="bg-black/40 p-6 rounded-2xl border border-neutral-800">
+          <div className="bg-black/40 p-8 rounded-2xl border border-neutral-800">
             <p className="text-neutral-400 text-sm uppercase">Staked Balance</p>
             <p className="text-4xl font-mono text-amber-500 mt-2 mb-6">{stakedBalance.toLocaleString()}</p>
-            <input 
-              type="text" 
-              placeholder="Enter amount" 
-              value={stakeInput}
-              onChange={(e) => setStakeInput(e.target.value)}
-              className="w-full bg-neutral-900 border border-neutral-700 text-white p-4 rounded-xl mb-4"
-            />
-            <div className="grid grid-cols-2 gap-4">
-              <button className="bg-amber-500 text-black font-bold py-3 rounded-xl hover:bg-amber-400">Stake</button>
-              <button className="border border-neutral-700 py-3 rounded-xl hover:bg-neutral-800">Unstake</button>
-            </div>
+            <button className="w-full bg-amber-500 text-black font-bold py-4 rounded-xl hover:bg-amber-400 transition-colors">Stake Tokens</button>
           </div>
         </section>
 
-        {/* Right Side: Info Sections */}
-        <section className="space-y-6">
-          <div className="bg-neutral-900/40 p-6 rounded-2xl border border-neutral-800">
-            <h2 className="text-xl font-semibold text-amber-500 mb-2">Storytelling</h2>
-            <p className="text-neutral-400 text-sm">Digital Gold Token ($DGT) is a decentralized staking ecosystem...</p>
-          </div>
-          <div className="bg-neutral-900/40 p-6 rounded-2xl border border-neutral-800">
-            <h2 className="text-xl font-semibold text-amber-500 mb-2">Tokenomics</h2>
-            <p className="text-neutral-400 text-sm">Total Supply: 500 Billion $DGT...</p>
-          </div>
-          <div className="bg-neutral-900/40 p-6 rounded-2xl border border-neutral-800">
-            <h2 className="text-xl font-semibold text-amber-500 mb-2">Whitepaper</h2>
-            <p className="text-neutral-400 text-sm">Frontend: Next.js + Tailwind. Backend: C++ Engine.</p>
-          </div>
+        {/* Right Side: Interactive Sections */}
+        <section className="lg:col-span-5 space-y-4">
+          {sections.map((sec) => (
+            <div key={sec.title} className="bg-neutral-900/50 rounded-2xl border border-neutral-800 overflow-hidden">
+              <button 
+                onClick={() => toggleSection(sec.title)}
+                className="w-full p-6 flex justify-between items-center text-amber-500 font-semibold hover:bg-neutral-800/50 transition-all"
+              >
+                {sec.title}
+                <span>{openSection === sec.title ? '−' : '+'}</span>
+              </button>
+              {openSection === sec.title && (
+                <div className="p-6 pt-0 text-neutral-400 text-sm border-t border-neutral-800 bg-neutral-950/50">
+                  {sec.content}
+                </div>
+              )}
+            </div>
+          ))}
         </section>
       </div>
     </main>
