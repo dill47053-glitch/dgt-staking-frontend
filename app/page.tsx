@@ -7,6 +7,21 @@ export default function Home() {
   const [openSection, setOpenSection] = useState<string | null>('Storytelling');
 
   const sections = [
+    { 
+      title: "Storytelling", 
+      content: "Digital Gold Token ($DGT) is a decentralized staking ecosystem built to provide stability and long-term value to holders." 
+    },
+    { 
+      title: "Tokenomics", 
+      content: "Total Supply: 500 Billion $DGT. 40% allocated for staking rewards, 30% for liquidity, and 30% for ecosystem development." 
+    }, // <--- DITO ANG KULANG NA COMMA
+    { 
+      title: "Whitepaper", 
+      content: "Our architecture utilizes a high-performance C++ engine for fast transactions, integrated with a secure Next.js frontend." 
+    }
+  ];
+
+  const sections = [
     { title: "Storytelling", content: "Digital Gold Token ($DGT) is a decentralized staking ecosystem built to provide stability and long-term value to holders." },
     { title: "Tokenomics", content: "Total Supply: 500 Billion $DGT. 40% allocated for staking rewards, 30% for liquidity, and 30% for ecosystem development." },
     { title: "Whitepaper", content: "Our architecture utilizes a high-performance C++ engine for fast transactions, integrated with a secure Next.js frontend." }
