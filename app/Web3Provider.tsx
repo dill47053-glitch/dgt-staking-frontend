@@ -1,5 +1,4 @@
 'use client';
-
 import React, { ReactNode } from 'react';
 import { config, projectId } from './config';
 import { createWeb3Modal } from '@web3modal/wagmi/react';
@@ -10,6 +9,7 @@ const queryClient = new QueryClient();
 
 if (!projectId) throw new Error('Project ID is not defined');
 
+// DITO ANG SIKRETO: Siguraduhin na ito ay tinatawag lang sa client
 createWeb3Modal({
   wagmiConfig: config,
   projectId,
