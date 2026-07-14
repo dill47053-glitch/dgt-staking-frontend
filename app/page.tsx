@@ -4,23 +4,13 @@ import { motion } from 'framer-motion';
 import WalletButton from './WalletButton';
 
 export default function Home() {
-  const [stakedBalance, setStakedBalance] = useState(100000000000); 
+  const [stakedBalance, setStakedBalance] = useState(100000000000);
   const [stakeInput, setStakeInput] = useState('');
-  const [bgColor, setBgColor] = useState('bg-[#0a0a0a]');
-
-  const handleStake = () => alert("Please ensure your wallet is connected!");
-  const handleUnstake = () => alert("Please ensure your wallet is connected!");
-
-  const sections = [
-    { title: "Storytelling", content: "Digital Gold Token ($DGT) is a decentralized staking ecosystem..." },
-    { title: "Tokenomics", content: "Total Supply: 500 Billion $DGT..." },
-    { title: "Whitepaper", content: "Frontend: Next.js + Tailwind. Backend: C++ Engine." }
-  ];
 
   return (
-    <main className={`min-h-screen ${bgColor} text-white p-6 relative`}>
+    <main className="min-h-screen bg-[#0a0a0a] text-white p-4 md:p-8">
       {/* Header */}
-      <div className="flex justify-between items-center max-w-6xl mx-auto mb-12">
+      <header className="flex justify-between items-center w-full mb-12">
         <div className="flex items-center gap-4 bg-neutral-900/50 p-2 pr-4 rounded-2xl border border-neutral-800/50">
           <img src="https://i.postimg.cc/FHcpQGs8/opengraph-image.png" alt="DGT Logo" width={45} height={45} className="rounded-xl"/>
           <div>
@@ -29,36 +19,50 @@ export default function Home() {
           </div>
         </div>
         <WalletButton />
-      </div>
+      </header>
 
-      {/* Hero / Staking */}
-      <div className="text-center mb-16">
-        <h1 className="text-6xl font-bold bg-gradient-to-b from-amber-200 to-amber-600 bg-clip-text text-transparent mb-6">Digital Gold Token</h1>
-        <div className="bg-neutral-900/80 border border-neutral-800/60 p-8 rounded-3xl backdrop-blur-lg shadow-xl w-full max-w-md mx-auto">
-          <p className="text-neutral-400 text-sm uppercase tracking-widest">Staked Balance</p>
-          <p className="text-4xl font-mono text-amber-500 mt-2 mb-6">{stakedBalance.toLocaleString()}</p>
-          <input 
-            type="text" 
-            placeholder="Enter $DGT amount" 
-            value={stakeInput}
-            onChange={(e) => setStakeInput(e.target.value)}
-            className="w-full bg-black/50 border border-neutral-800 text-center py-3 rounded-xl mb-4 focus:outline-none"
-          />
-          <div className="grid grid-cols-2 gap-4">
-            <button onClick={handleStake} className="bg-gradient-to-r from-amber-600 to-amber-500 text-black font-semibold py-3 rounded-xl">Stake</button>
-            <button onClick={handleUnstake} className="border border-neutral-700 text-neutral-300 py-3 rounded-xl">Unstake</button>
+      {/* Main Layout - Grid na nakasentro */}
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        
+        {/* Left Side: Staking */}
+        <section className="bg-neutral-900/40 p-8 rounded-3xl border border-neutral-800 backdrop-blur-sm">
+          <h1 className="text-5xl font-bold bg-gradient-to-b from-amber-200 to-amber-600 bg-clip-text text-transparent mb-6">
+            Digital Gold Token
+          </h1>
+          <p className="text-neutral-400 mb-8">Stake your $DGT to earn rewards in our decentralized ecosystem.</p>
+          
+          <div className="bg-black/40 p-6 rounded-2xl border border-neutral-800">
+            <p className="text-neutral-400 text-sm uppercase">Staked Balance</p>
+            <p className="text-4xl font-mono text-amber-500 mt-2 mb-6">{stakedBalance.toLocaleString()}</p>
+            <input 
+              type="text" 
+              placeholder="Enter amount" 
+              value={stakeInput}
+              onChange={(e) => setStakeInput(e.target.value)}
+              className="w-full bg-neutral-900 border border-neutral-700 text-white p-4 rounded-xl mb-4"
+            />
+            <div className="grid grid-cols-2 gap-4">
+              <button className="bg-amber-500 text-black font-bold py-3 rounded-xl hover:bg-amber-400">Stake</button>
+              <button className="border border-neutral-700 py-3 rounded-xl hover:bg-neutral-800">Unstake</button>
+            </div>
           </div>
-        </div>
-      </div>
+        </section>
 
-      {/* Sections */}
-      <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-        {sections.map((sec, i) => (
-          <div key={i} className="bg-neutral-900/50 p-6 rounded-2xl border border-neutral-800">
-            <h2 className="text-xl font-semibold text-amber-500 mb-4">{sec.title}</h2>
-            <p className="text-neutral-400 text-sm">{sec.content}</p>
+        {/* Right Side: Info Sections */}
+        <section className="space-y-6">
+          <div className="bg-neutral-900/40 p-6 rounded-2xl border border-neutral-800">
+            <h2 className="text-xl font-semibold text-amber-500 mb-2">Storytelling</h2>
+            <p className="text-neutral-400 text-sm">Digital Gold Token ($DGT) is a decentralized staking ecosystem...</p>
           </div>
-        ))}
+          <div className="bg-neutral-900/40 p-6 rounded-2xl border border-neutral-800">
+            <h2 className="text-xl font-semibold text-amber-500 mb-2">Tokenomics</h2>
+            <p className="text-neutral-400 text-sm">Total Supply: 500 Billion $DGT...</p>
+          </div>
+          <div className="bg-neutral-900/40 p-6 rounded-2xl border border-neutral-800">
+            <h2 className="text-xl font-semibold text-amber-500 mb-2">Whitepaper</h2>
+            <p className="text-neutral-400 text-sm">Frontend: Next.js + Tailwind. Backend: C++ Engine.</p>
+          </div>
+        </section>
       </div>
     </main>
   );
