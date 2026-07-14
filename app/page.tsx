@@ -9,25 +9,29 @@ export default function Home() {
   const [currentTab, setCurrentTab] = useState('Dashboard');
   const [bgColor, setBgColor] = useState('bg-[#0a0a0a]');
   const [loading, setLoading] = useState(false);
+  const [showWalletModal, setShowWalletModal] = useState(false); // Bagong state para sa Wallet Menu
 
-  // Function para mag-connect sa MetaMask/Web3 Wallet
-  const connectWallet = async () => {
+  // Universal Connect Function
+  const connectSpecificWallet = async (walletName: string) => {
     if (typeof window !== 'undefined' && (window as any).ethereum) {
       try {
         setLoading(true);
+        // Hihingi ng connection sa kahit anong active Web3 provider (MetaMask, Trust, Coinbase extension)
         const accounts = await (window as any).ethereum.request({ method: 'eth_requestAccounts' });
         setWalletAddress(accounts[0]);
-        
-        // Dito pwede nating hilahin ang totoong staked balance mula sa Smart Contract sa susunod
-        alert("Wallet connected successfully!");
+        setShowWalletModal(false); // Isasara ang modal pagkatapos mag-connect
       } catch (err) {
         console.error(err);
-        alert("Failed to connect wallet.");
+        alert(`Failed to connect ${walletName}.`);
       } finally {
         setLoading(false);
       }
     } else {
-      alert("MetaMask not detected! Please install MetaMask extension.");
+      if (walletName === 'WalletConnect') {
+        alert("Para sa WalletConnect (QR Code), kailangan nating i-install ang Web3Modal library sa susunod na step!");
+      } else {
+        alert(`${walletName} o Web3 provider not detected! Please install a wallet extension.`);
+      }
     }
   };
 
@@ -91,10 +95,45 @@ export default function Home() {
   return (
     <main className={`min-h-screen ${bgColor} text-white flex flex-col items-center justify-between p-6 transition-all duration-700 ease-in-out relative overflow-hidden`}>
       
+      {/* WALLET SELECTION MODAL (Pop-up Menu) */}
+      {showWalletModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-neutral-900 border border-neutral-700 p-6 rounded-2xl shadow-2xl w-full max-w-sm relative"
+          >
+            <button 
+              onClick={() => setShowWalletModal(false)}
+              className="absolute top-4 right-4 text-neutral-400 hover:text-white cursor-pointer"
+            >
+              ✕
+            </button>
+            <h3 className="text-xl font-bold mb-4 text-center">Connect a Wallet</h3>
+            <div className="flex flex-col gap-3">
+              <button onClick={() => connectSpecificWallet('MetaMask')} className="flex items-center justify-between w-full bg-black/50 hover:bg-black/80 border border-neutral-800 p-3 rounded-xl transition-colors">
+                <span className="font-medium">MetaMask</span>
+                <span className="text-xl">🦊</span>
+              </button>
+              <button onClick={() => connectSpecificWallet('Coinbase Wallet')} className="flex items-center justify-between w-full bg-black/50 hover:bg-black/80 border border-neutral-800 p-3 rounded-xl transition-colors">
+                <span className="font-medium">Coinbase Wallet</span>
+                <span className="text-xl">🛡️</span>
+              </button>
+              <button onClick={() => connectSpecificWallet('Trust Wallet')} className="flex items-center justify-between w-full bg-black/50 hover:bg-black/80 border border-neutral-800 p-3 rounded-xl transition-colors">
+                <span className="font-medium">Trust Wallet</span>
+                <span className="text-xl">🛡️</span>
+              </button>
+              <button onClick={() => connectSpecificWallet('WalletConnect')} className="flex items-center justify-between w-full bg-blue-900/20 hover:bg-blue-900/40 border border-blue-500/30 p-3 rounded-xl transition-colors">
+                <span className="font-medium text-blue-400">WalletConnect (QR)</span>
+                <span className="text-xl">📱</span>
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      )}
+
       {/* Top Wallet Connect Bar */}
       <div className="w-full max-w-6xl flex justify-between items-center p-4 z-50 relative">
-        
-        {/* Logo at Contract Address Section */}
         <div className="flex items-center gap-4 bg-neutral-900/50 p-2 pr-4 rounded-2xl border border-neutral-800/50">
           <img 
             src="https://i.postimg.cc/FHcpQGs8/opengraph-image.png" 
@@ -109,17 +148,16 @@ export default function Home() {
           </div>
         </div> 
 
-        {/* Connect Button */}
         <button
-          onClick={connectWallet}
+          onClick={() => walletAddress ? setWalletAddress('') : setShowWalletModal(true)}
           disabled={loading}
           className={`px-6 py-2.5 rounded-xl font-medium tracking-wide text-sm transition-all duration-300 shadow-md ${
             walletAddress 
-              ? 'bg-emerald-500/10 border border-emerald-500/30 text-emerald-400' 
+              ? 'bg-red-500/10 border border-red-500/30 text-red-400 hover:bg-red-500/20' 
               : 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-semibold cursor-pointer active:scale-95'
           }`}
         >
-          {loading ? 'Connecting...' : walletAddress ? `Connected: ${walletAddress.substring(0, 6)}...${walletAddress.substring(walletAddress.length - 4)}` : 'Connect Wallet'}
+          {loading ? 'Connecting...' : walletAddress ? 'Disconnect' : 'Connect Wallet'}
         </button>
       </div>
 
@@ -140,6 +178,14 @@ export default function Home() {
               transition={{ delay: 0.5 }}
               className="bg-neutral-900/80 border border-neutral-800/60 p-8 rounded-3xl backdrop-blur-lg shadow-xl w-full max-w-md flex flex-col items-center z-30 relative"
             >
+              {/* NAKALABAS NA WALLET ADDRESS DISPLAY */}
+              {walletAddress && (
+                <div className="w-full bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-3 mb-6 transition-all">
+                  <p className="text-[10px] text-emerald-400/70 uppercase tracking-widest mb-1">Your Connected Wallet</p>
+                  <p className="text-xs sm:text-sm font-mono text-emerald-400 break-all">{walletAddress}</p>
+                </div>
+              )}
+
               <p className="text-neutral-400 text-sm uppercase tracking-widest">Staked Balance</p>
               <p className="text-4xl font-mono text-amber-500 mt-2 mb-6">{stakedBalance.toLocaleString()}</p>
               
