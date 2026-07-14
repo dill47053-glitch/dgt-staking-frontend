@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 
 export default function Home() {
@@ -90,12 +90,26 @@ export default function Home() {
 
   return (
     <main className={`min-h-screen ${bgColor} text-white flex flex-col items-center justify-between p-6 transition-all duration-700 ease-in-out relative overflow-hidden`}>
+      
       {/* Top Wallet Connect Bar */}
-      <div className="w-full max-w-6xl flex justify-end p-4 z-50 relative">
-       <div>
-  <img src="https://i.postimg.cc/FHcpQGs8/opengraph-image.png" alt="DGT Logo" width={50} height={50} />
-  <p>Contract Address: 0x7353BA5DB88Cc9F2778aeDe8F17975f9c781edC6</p>
-</div> 
+      <div className="w-full max-w-6xl flex justify-between items-center p-4 z-50 relative">
+        
+        {/* Logo at Contract Address Section */}
+        <div className="flex items-center gap-4 bg-neutral-900/50 p-2 pr-4 rounded-2xl border border-neutral-800/50">
+          <img 
+            src="https://i.postimg.cc/FHcpQGs8/opengraph-image.png" 
+            alt="DGT Logo" 
+            width={45} 
+            height={45} 
+            className="rounded-xl shadow-lg"
+          />
+          <div className="hidden sm:block">
+            <p className="text-[10px] text-neutral-400 uppercase tracking-widest mb-0.5">Contract Address</p>
+            <p className="text-xs font-mono text-amber-500">0x7353BA5DB88Cc9F2778aeDe8F17975f9c781edC6</p>
+          </div>
+        </div> 
+
+        {/* Connect Button */}
         <button
           onClick={connectWallet}
           disabled={loading}
