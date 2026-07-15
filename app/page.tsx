@@ -79,6 +79,7 @@ export default function Home() {
             </div>
           </div>
           <WalletButton />
+          <appkit-button />
         </header>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '40px' }}>
