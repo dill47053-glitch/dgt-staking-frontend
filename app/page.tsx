@@ -23,8 +23,6 @@ export default function Home() {
     return 400000000000;
   });
 
-  const [stakedBalance, setStakedBalance] = useState(100000000000); 
-  const [walletBalance, setWalletBalance] = useState(400000000000);
   const [stakeAmount, setStakeAmount] = useState('');
   const [openSection, setOpenSection] = useState<string | null>('Storytelling');
 
@@ -51,6 +49,10 @@ export default function Home() {
       const amountToWithdraw = stakedBalance;
       setWalletBalance(walletBalance + amountToWithdraw);
       setStakedBalance(0);
+
+      localStorage.setItem('walletBalance', newWallet.toString());
+      localStorage.setItem('stakedBalance', '0');
+      
       alert("Successfully unstaked " + amountToWithdraw.toLocaleString() + " $DGT!");
     } else {
       alert("No tokens to unstake.");
