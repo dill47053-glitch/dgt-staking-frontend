@@ -47,12 +47,14 @@ export default function Home() {
   const handleUnstake = () => {
     if (stakedBalance > 0) {
       const amountToWithdraw = stakedBalance;
+      const newWallet = walletBalance + amountToWithdraw;
       setWalletBalance(walletBalance + amountToWithdraw);
+      setWalletBalance(newWallet);
       setStakedBalance(0);
 
       localStorage.setItem('walletBalance', newWallet.toString());
       localStorage.setItem('stakedBalance', '0');
-      
+
       alert("Successfully unstaked " + amountToWithdraw.toLocaleString() + " $DGT!");
     } else {
       alert("No tokens to unstake.");
