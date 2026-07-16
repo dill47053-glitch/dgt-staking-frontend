@@ -1,42 +1,34 @@
 'use client';
-import { useState } from 'react';
-import WalletButton from './WalletButton';
-import { useWriteContract } from 'wagmi'; // Importing the necessary hook
+import { useState, useEffect } from 'react';
 
-// Use the new verified contract address
 const STAKING_CONTRACT_ADDRESS = '0xE87d902f8Db9eb3b359a516F093Bf6Bcf7248a6A';
 
 export default function Home() {
-  const [stakedBalance, setStakedBalance] = useState(() => {
-   if (typeof window !== 'undefined') {
-  const saved = localStorage.getItem('stakedBalance'); 
-  return saved ? parseInt(saved) : 100000000000;
-   }
-   return 100000000000;
-  });
-  
-  const [walletBalance, setWalletBalance] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('walletBalance');
-      return saved ? parseInt(saved) : 400000000000;
-    }
-    return 400000000000;
-  });
-
+  const [stakedBalance, setStakedBalance] = useState(100000000000);
+  const [walletBalance, setWalletBalance] = useState(400000000000);
   const [stakeAmount, setStakeAmount] = useState('');
   const [openSection, setOpenSection] = useState<string | null>('Storytelling');
+
+  // Ito ang tamang paraan para mag-load mula sa localStorage
+  useEffect(() => {
+    const savedStaked = localStorage.getItem('stakedBalance');
+    const savedWallet = localStorage.getItem('walletBalance');
+    if (savedStaked) setStakedBalance(parseInt(savedStaked));
+    if (savedWallet) setWalletBalance(parseInt(savedWallet));
+  }, []);
 
   const handleStake = () => {
     const amount = parseInt(stakeAmount);
     if (amount > 0 && amount <= walletBalance) {
       const newWallet = walletBalance - amount;
       const newStaked = stakedBalance + amount;
+      
       setWalletBalance(newWallet);
       setStakedBalance(newStaked);
+      
       localStorage.setItem('walletBalance', newWallet.toString());
       localStorage.setItem('stakedBalance', newStaked.toString());
-      setWalletBalance(walletBalance - amount);
-      setStakedBalance(stakedBalance + amount);
+      
       setStakeAmount('');
       alert("Successfully staked " + amount.toLocaleString() + " $DGT");
     } else {
@@ -48,7 +40,7 @@ export default function Home() {
     if (stakedBalance > 0) {
       const amountToWithdraw = stakedBalance;
       const newWallet = walletBalance + amountToWithdraw;
-      setWalletBalance(walletBalance + amountToWithdraw);
+      
       setWalletBalance(newWallet);
       setStakedBalance(0);
 
@@ -103,12 +95,8 @@ export default function Home() {
         <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#171717', padding: '20px', borderRadius: '15px', border: '1px solid #333', marginBottom: '40px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
             <img src="https://i.postimg.cc/FHcpQGs8/opengraph-image.png" alt="DGT Logo" width={50} height={50} style={{ borderRadius: '10px' }}/>
-            <div>
-              <p style={{ fontSize: '10px', color: '#888', textTransform: 'uppercase' }}>Wallet Balance</p>
-              <p style={{ fontSize: '18px', color: '#f59e0b', fontWeight: 'bold' }}>{walletBalance.toLocaleString()} $DGT</p>
-            </div>
+            <h2 style={{ color: '#ffffff', margin: 0, fontSize: '20px' }}>Digital Gold Token ($DGT)</h2>
           </div>
-
           <appkit-button />
         </header>
 
@@ -119,7 +107,6 @@ export default function Home() {
               <p style={{ color: '#888', fontSize: '12px', textTransform: 'uppercase' }}>Total Staked Balance</p>
               <h2 style={{ fontSize: '32px', color: '#f59e0b', margin: '15px 0', fontFamily: 'monospace' }}>{stakedBalance.toLocaleString()} $DGT</h2>
 
-              {/* Dito natin ilalagay ang contract address */}
               <div style={{ marginBottom: '20px', fontSize: '12px', color: '#666' }}>
                 Contract: <span style={{ color: '#f59e0b', fontFamily: 'monospace', cursor: 'pointer' }} onClick={() => navigator.clipboard.writeText(STAKING_CONTRACT_ADDRESS)}>
                   {STAKING_CONTRACT_ADDRESS}
