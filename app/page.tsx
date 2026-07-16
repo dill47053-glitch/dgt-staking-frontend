@@ -7,6 +7,22 @@ import { useWriteContract } from 'wagmi'; // Importing the necessary hook
 const STAKING_CONTRACT_ADDRESS = '0xE87d902f8Db9eb3b359a516F093Bf6Bcf7248a6A';
 
 export default function Home() {
+  const [stakedBalance, setStakedBalance] = useState(() => {
+   if (typeof window !== 'undefined') {
+  const saved = localStorage.getItem('stakedBalance'); 
+  return saved ? parseInt(saved) : 100000000000;
+   }
+   return 100000000000;
+  });
+  
+  const [walletBalance, setWalletBalance] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('walletBalance');
+      return saved ? parseInt(saved) : 400000000000;
+    }
+    return 400000000000;
+  });
+
   const [stakedBalance, setStakedBalance] = useState(100000000000); 
   const [walletBalance, setWalletBalance] = useState(400000000000);
   const [stakeAmount, setStakeAmount] = useState('');
@@ -15,6 +31,12 @@ export default function Home() {
   const handleStake = () => {
     const amount = parseInt(stakeAmount);
     if (amount > 0 && amount <= walletBalance) {
+      const newWallet = walletBalance - amount;
+      const newStaked = stakedBalance + amount;
+      setWalletBalance(newWallet);
+      setStakedBalance(newStaked);
+      localStorage.setItem('walletBalance', newWallet.toString());
+      localStorage.setItem('stakedBalance', newStaked.toString());
       setWalletBalance(walletBalance - amount);
       setStakedBalance(stakedBalance + amount);
       setStakeAmount('');
