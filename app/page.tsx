@@ -82,7 +82,7 @@ export default function Home() {
               <p style={{ fontSize: '18px', color: '#f59e0b', fontWeight: 'bold' }}>{walletBalance.toLocaleString()} $DGT</p>
             </div>
           </div>
-          
+
           <appkit-button />
         </header>
 
@@ -92,6 +92,14 @@ export default function Home() {
             <div style={{ backgroundColor: '#000', padding: '30px', borderRadius: '15px', border: '1px solid #333' }}>
               <p style={{ color: '#888', fontSize: '12px', textTransform: 'uppercase' }}>Total Staked Balance</p>
               <h2 style={{ fontSize: '32px', color: '#f59e0b', margin: '15px 0', fontFamily: 'monospace' }}>{stakedBalance.toLocaleString()} $DGT</h2>
+
+              {/* Dito natin ilalagay ang contract address */}
+              <div style={{ marginBottom: '20px', fontSize: '12px', color: '#666' }}>
+                Contract: <span style={{ color: '#f59e0b', fontFamily: 'monospace', cursor: 'pointer' }} onClick={() => navigator.clipboard.writeText(STAKING_CONTRACT_ADDRESS)}>
+                  {STAKING_CONTRACT_ADDRESS}
+                </span>
+              </div>
+
               <input type="number" placeholder="Enter amount to stake" value={stakeAmount} onChange={(e) => setStakeAmount(e.target.value)} style={{ width: '100%', padding: '15px', marginBottom: '15px', backgroundColor: '#171717', border: '1px solid #333', borderRadius: '10px', color: '#fff' }}/>
               <div style={{ display: 'flex', gap: '10px' }}>
                 <button onClick={handleStake} style={{ flex: 1, padding: '15px', backgroundColor: '#f59e0b', border: 'none', borderRadius: '10px', fontWeight: 'bold', cursor: 'pointer' }}>Stake</button>
