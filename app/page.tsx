@@ -82,7 +82,7 @@ export default function Home() {
               <p style={{ fontSize: '18px', color: '#f59e0b', fontWeight: 'bold' }}>{walletBalance.toLocaleString()} $DGT</p>
             </div>
           </div>
-          <WalletButton />
+          
           <appkit-button />
         </header>
 
