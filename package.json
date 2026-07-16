@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@metamask/detect-provider": "^2.0.0",
+    "@reown/appkit": "^1.8.22",
+    "@reown/appkit-adapter-ethers": "^1.8.22",
     "@tanstack/react-query": "^5.101.2",
     "@walletconnect/ethereum-provider": "^2.23.10",
     "@web3modal/wagmi": "^5.1.11",
@@ -34,6 +36,7 @@
   "allowScripts": {
     "sharp@0.34.5": true,
     "unrs-resolver@1.12.2": true,
-    "@reown/appkit@1.8.19": true
+    "@reown/appkit@1.8.19": true,
+    "@reown/appkit@1.8.22": true
   }
 }

@@ -1,6 +1,10 @@
 'use client';
 import { useState } from 'react';
 import WalletButton from './WalletButton';
+import { useWriteContract } from 'wagmi'; // Importing the necessary hook
+
+// Use the new verified contract address
+const STAKING_CONTRACT_ADDRESS = '0xE87d902f8Db9eb3b359a516F093Bf6Bcf7248a6A';
 
 export default function Home() {
   const [stakedBalance, setStakedBalance] = useState(100000000000); 

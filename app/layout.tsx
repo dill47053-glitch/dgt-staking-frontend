@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 // Siguraduhin na ang path ng AppKitProvider ay tama (halimbawa: '../context')
-import { AppKitProvider } from '../context'; 
+import { AppKitProvider } from './context'; 
 
 const inter = Inter({ subsets: ["latin"] });
 
