@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-// Siguraduhin na ang path ng AppKitProvider ay tama (halimbawa: '../context')
-import { AppKitProvider } from './context'; 
+// Dito natin i-import ang AppKitProvider mula sa context folder
+import { AppKitProvider } from '../context'; 
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +19,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        {/* Dito natin binabalot ang children para gumana ang wallet sa lahat ng pages */}
         <AppKitProvider>
           {children}
         </AppKitProvider>
