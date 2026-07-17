@@ -2,8 +2,8 @@
 import { useReadContract, useWriteContract, useAccount } from 'wagmi';
 import { useState } from 'react';
 
-// Siguraduhin na ito ang pangalan ng export sa iyong JSON file
-import DGTStakingABI from './DGTStakingABI_json/DGTStaking.json';
+// Dahil nasa app/abi/ na siya at malinis ang filename:
+import dgtStakingABI from './abi/dgtstaking.json';
 
 const STAKING_CONTRACT_ADDRESS = '0xE87d902f8Db9eb3b359a516F093Bf6Bcf7248a6A';
 const DGT_TOKEN = '0x7353BA5DB88Cc9F2778aeDe8F17975f9c781edC6';
@@ -12,11 +12,17 @@ export default function Home() {
   const { address } = useAccount();
   const { writeContract } = useWriteContract();
   const [stakeAmount, setStakeAmount] = useState('');
+  
+  // Dito natin ilalagay yung logic ng features mo (Storytelling, etc.)
+  const sections = [
+    { title: "Storytelling", content: "..." },
+    { title: "Tokenomics", content: "..." },
+    { title: "Whitepaper", content: "..." }
+  ];
 
-  // Dito natin ginamit ang 'as const' para mabasa ng wagmi ang structure
   const { data: stakedData } = useReadContract({
     address: STAKING_CONTRACT_ADDRESS as `0x${string}`,
-    abi: DGTStakingABI as const,
+    abi: dgtStakingABI as const, // Ngayon, siguradong gagana ito
     functionName: 'stakedBalanceOf',
     args: [address],
   });
@@ -26,7 +32,7 @@ export default function Home() {
   const handleStake = () => {
     writeContract({
       address: STAKING_CONTRACT_ADDRESS as `0x${string}`,
-      abi: DGTStakingABI as const,
+      abi: DGTStakingABI,
       functionName: 'stake', 
       args: [BigInt(stakeAmount || 0)],
     });
@@ -36,6 +42,7 @@ export default function Home() {
     <main style={{ backgroundColor: '#0a0a0a', color: '#ffffff', minHeight: '100vh', padding: '2rem' }}>
        <h1>Digital Gold Token Staking</h1>
        <p>Total Staked: {stakedBalance.toLocaleString()} $DGT</p>
+       
        <input 
          style={{ color: 'black' }} 
          value={stakeAmount} 
@@ -43,6 +50,16 @@ export default function Home() {
          placeholder="Amount"
        />
        <button onClick={handleStake}>Stake Now</button>
+
+       {/* Dito ibabalik natin yung features */}
+       <div style={{ marginTop: '2rem' }}>
+         {sections.map((sec) => (
+           <div key={sec.title}>
+             <h3>{sec.title}</h3>
+             <p>{sec.content}</p>
+           </div>
+         ))}
+       </div>
     </main>
   );
 }

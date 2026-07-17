@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 // Dito natin i-import ang AppKitProvider mula sa context folder
-import { AppKitProvider } from '../context'; 
+import { AppKitProvider } from './context';
 
 const inter = Inter({ subsets: ["latin"] });
 
