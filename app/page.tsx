@@ -1,9 +1,7 @@
 'use client'
 import { useReadContract, useWriteContract, useAccount } from 'wagmi';
 import { useState } from 'react';
-
-// Dahil nasa app/abi/ na siya at malinis ang filename:
-import dgtStakingABI from './abi/dgtstaking.json';
+import DGTStakingABI from './DGT.json';
 
 const STAKING_CONTRACT_ADDRESS = '0xE87d902f8Db9eb3b359a516F093Bf6Bcf7248a6A';
 const DGT_TOKEN = '0x7353BA5DB88Cc9F2778aeDe8F17975f9c781edC6';
@@ -22,8 +20,8 @@ export default function Home() {
 
   const { data: stakedData } = useReadContract({
     address: STAKING_CONTRACT_ADDRESS as `0x${string}`,
-    abi: dgtStakingABI as const, // Ngayon, siguradong gagana ito
-    functionName: 'stakedBalanceOf',
+    abi: DGTStakingABI as const,
+    functionName: 'stakingBalance',
     args: [address],
   });
 
