@@ -1,27 +1,10 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-// Dito natin i-import ang AppKitProvider mula sa context folder
-import { AppKitProvider } from './context';
+import './globals.css'; 
 
-const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "Digital Gold Token",
-  description: "DGT Web3 Staking Dashboard",
-};
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <AppKitProvider>
+      <body>
           {children}
-        </AppKitProvider>
       </body>
     </html>
   );

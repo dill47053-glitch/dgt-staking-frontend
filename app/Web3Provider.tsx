@@ -1,34 +1,21 @@
 'use client';
-import React, { ReactNode } from 'react';
-import { config, projectId } from './config';
-import { createWeb3Modal } from '@web3modal/wagmi/react';
+import { WagmiProvider } from 'wagmi';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { State, WagmiProvider } from 'wagmi';
+import { createAppKit } from '@reown/appkit/react';
+import { wagmiAdapter, projectId, networks } from './config';
 
 const queryClient = new QueryClient();
 
-if (!projectId) throw new Error('Project ID is not defined');
-
-// DITO ANG SIKRETO: Siguraduhin na ito ay tinatawag lang sa client
-createWeb3Modal({
-  wagmiConfig: config,
+createAppKit({
+  adapters: [wagmiAdapter],
   projectId,
-  enableAnalytics: true, 
-  themeMode: 'dark',
-  themeVariables: {
-    '--w3m-accent': '#f59e0b', 
-  }
+  networks,
+  defaultNetwork: networks[0],
 });
 
-export default function Web3Provider({
-  children,
-  initialState
-}: {
-  children: ReactNode;
-  initialState?: State;
-}) {
+export default function Web3Provider({ children }: { children: React.ReactNode }) {
   return (
-    <WagmiProvider config={config} initialState={initialState}>
+    <WagmiProvider config={wagmiAdapter.wagmiConfig}>
       <QueryClientProvider client={queryClient}>
         {children}
       </QueryClientProvider>
