@@ -180,10 +180,9 @@ export default function Home() {
             
             <div className="text-lg text-gray-300 mb-8 max-w-3xl mx-auto space-y-4 font-light">
               <p>
-                Ang <strong className="text-yellow-400 font-semibold">Digital Gold Token ($DGT) Whitepaper</strong> ay ang pangunahing blueprint ng ating ecosystem. Detalyado rito kung paano natin pinagsama ang Decentralized Finance (DeFi) at Quantum Numerology para makabuo ng isang matibay na digital asset.
               </p>
               <p>
-                Alamin ang malalim na mekanismo ng ating deflationary tokenomics, liquidity lock protocols, at ang arkitektura ng ating parating na Cross-Chain Bridge. Basahin kung paano gumagana ang "Ritual Logic" at "Quantum Randomness" sa loob ng ating smart contracts.
+                The <strong className="text-yellow-400 font-semibold">Digital Gold Token ($DGT) Whitepaper</strong> is the foundational blueprint of our ecosystem. It details how we seamlessly integrate Decentralized Finance (DeFi) with Quantum Numerology to create a highly robust digital asset.
               </p>
             </div>
 
